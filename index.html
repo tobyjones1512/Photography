@@ -389,9 +389,10 @@
   <button id="close-menu" class="absolute top-6 right-8 text-foreground/60 hover:text-foreground" style="color:rgba(245,237,232,0.6)">
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
   </button>
-  <a href="#gallery"  onclick="closeMenu()">Portfolio</a>
-  <a href="#services" onclick="closeMenu()">Experience</a>
-  <a href="#cta"      onclick="closeMenu()">Enquire Now</a>
+  <a href="#gallery"      onclick="closeMenu()">Portfolio</a>
+  <a href="#services"    onclick="closeMenu()">Experience</a>
+  <a href="casting/" onclick="closeMenu()" style="color:#c9a882;">Casting Call</a>
+  <a href="#cta"         onclick="closeMenu()">Enquire Now</a>
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════════
@@ -409,6 +410,7 @@
     <nav class="hidden md:flex items-center gap-10">
       <a href="#gallery">Portfolio</a>
       <a href="#services">Experience</a>
+      <a href="casting/" style="color:#c9a882;">Casting Call</a>
       <a href="#cta">Enquire Now</a>
     </nav>
 
@@ -580,9 +582,10 @@
 <footer>
   <div class="logo-text" style="font-size:1.1rem;">TORONTO BOUDOIR.</div>
   <nav class="flex flex-wrap gap-6 justify-center">
-    <a href="#gallery"  style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(245,237,232,0.4); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#f5ede8'" onmouseout="this.style.color='rgba(245,237,232,0.4)'">Portfolio</a>
-    <a href="#services" style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(245,237,232,0.4); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#f5ede8'" onmouseout="this.style.color='rgba(245,237,232,0.4)'">Experience</a>
-    <a href="#cta"      style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(245,237,232,0.4); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#f5ede8'" onmouseout="this.style.color='rgba(245,237,232,0.4)'">Enquire Now</a>
+    <a href="#gallery"      style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(245,237,232,0.4); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#f5ede8'" onmouseout="this.style.color='rgba(245,237,232,0.4)'">Portfolio</a>
+    <a href="#services"    style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(245,237,232,0.4); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#f5ede8'" onmouseout="this.style.color='rgba(245,237,232,0.4)'">Experience</a>
+    <a href="casting/" style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:#c9a882; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#f5ede8'" onmouseout="this.style.color='#c9a882'">Casting Call</a>
+    <a href="#cta"         style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(245,237,232,0.4); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#f5ede8'" onmouseout="this.style.color='rgba(245,237,232,0.4)'">Enquire Now</a>
   </nav>
   <p style="font-size:0.72rem; color:rgba(245,237,232,0.2); letter-spacing:0.05em;">
     &copy; 2026 Toronto Boudoir - Toronto, Ontario
@@ -601,58 +604,22 @@
 
   // ── Carousel (feature-carousel logic) ───────────────────────────
   const carouselImages = [
-    {
-      src: 'https://images.unsplash.com/photo-1704919260237-4df6a7e70e4a?q=80&w=987&auto=format&fit=crop',
-      alt: 'Boudoir portrait'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1633460169288-aae1f61e3a53?q=80&w=987&auto=format&fit=crop',
-      alt: 'Boudoir portrait'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1633465865496-b08a3cb9d073?q=80&w=987&auto=format&fit=crop',
-      alt: 'Boudoir portrait'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1626213216833-63ef82d1d18d?q=80&w=987&auto=format&fit=crop',
-      alt: 'Glamour portrait'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1652715256284-6cba3e829a70?q=80&w=987&auto=format&fit=crop',
-      alt: 'Boudoir portrait'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1629834591791-2d60956b38ef?q=80&w=1065&auto=format&fit=crop',
-      alt: 'Boudoir portrait'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1625856198153-4723522a1c9b?q=80&w=987&auto=format&fit=crop',
-      alt: 'Glamour portrait'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1760460432096-26b25eb34a18?q=80&w=987&auto=format&fit=crop',
-      alt: 'Boudoir portrait'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1600252901341-7938e7cb112c?q=80&w=987&auto=format&fit=crop',
-      alt: 'Glamour portrait'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1533412997110-954378977885?q=80&w=987&auto=format&fit=crop',
-      alt: 'Boudoir portrait'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1720773384520-f0c9114bbb78?q=80&w=1008&auto=format&fit=crop',
-      alt: 'Glamour portrait'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1622151853708-02beec11c5a7?q=80&w=987&auto=format&fit=crop',
-      alt: 'Boudoir portrait'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1623955609272-586f5b842a3c?q=80&w=987&auto=format&fit=crop',
-      alt: 'Glamour portrait'
-    },
+    { src: 'assets/imgs/photo-1704919260237-4df6a7e70e4a.avif', alt: 'Boudoir portrait' },
+    { src: 'assets/imgs/IMG_1513.jpeg',                          alt: 'Boudoir portrait' },
+    { src: 'assets/imgs/photo-1633460169288-aae1f61e3a53.avif', alt: 'Boudoir portrait' },
+    { src: 'assets/imgs/photo-1633465865496-b08a3cb9d073.avif', alt: 'Boudoir portrait' },
+    { src: 'assets/imgs/IMG_1531.JPG',                           alt: 'Glamour portrait' },
+    { src: 'assets/imgs/photo-1626213216833-63ef82d1d18d.avif', alt: 'Glamour portrait' },
+    { src: 'assets/imgs/photo-1652715256284-6cba3e829a70.avif', alt: 'Boudoir portrait' },
+    { src: 'assets/imgs/photo-1629834591791-2d60956b38ef.avif', alt: 'Boudoir portrait' },
+    { src: 'assets/imgs/IMG_1532.jpeg',                          alt: 'Glamour portrait' },
+    { src: 'assets/imgs/photo-1625856198153-4723522a1c9b.avif', alt: 'Glamour portrait' },
+    { src: 'assets/imgs/photo-1760460432096-26b25eb34a18.avif', alt: 'Boudoir portrait' },
+    { src: 'assets/imgs/photo-1600252901341-7938e7cb112c.avif', alt: 'Glamour portrait' },
+    { src: 'assets/imgs/IMG_1514.PNG',                           alt: 'Boudoir portrait' },
+    { src: 'assets/imgs/photo-1533412997110-954378977885.avif', alt: 'Boudoir portrait' },
+    { src: 'assets/imgs/photo-1622151853708-02beec11c5a7.avif', alt: 'Boudoir portrait' },
+    { src: 'assets/imgs/photo-1623955609272-586f5b842a3c.avif', alt: 'Glamour portrait' },
   ];
 
   const track = document.getElementById('carousel-track');

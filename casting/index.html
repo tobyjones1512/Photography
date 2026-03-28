@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casting Call - Toronto Boudoir</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            background: '#0d0b0b',
+            foreground: '#f5ede8',
+            muted: '#7a6760',
+            accent: '#c9a882',
+            blush: '#e8c4b2',
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+            display: ['Cormorant Garamond', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: #0d0b0b;
+      color: #f5ede8;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(28px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .anim-fadeup    { animation: fadeInUp   0.8s ease forwards; }
+    .anim-faderight { animation: fadeInRight 0.7s ease forwards; }
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.5s; }
+    .delay-3 { animation-delay: 0.8s; }
+    .delay-4 { animation-delay: 1.1s; }
+    .delay-5 { animation-delay: 1.4s; }
+    .opacity-0-init { opacity: 0; }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2.5rem;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/imgs/IMG_1532.jpeg');
+      background-size: cover;
+      background-position: center top;
+      pointer-events: none;
+      z-index: 1;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(13,11,11,0.6) 0%, rgba(13,11,11,0.35) 50%, rgba(13,11,11,0.8) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .logo-text {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #f5ede8;
+    }
+    nav a {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,237,232,0.5);
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+    nav a:hover { color: #f5ede8; }
+
+    /* ── MOBILE NAV ──────────────────────────────────────── */
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(13,11,11,0.97);
+      z-index: 100;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    #mobile-menu.open { display: flex; }
+    #mobile-menu a {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: #f5ede8;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── DETAILS SECTION ─────────────────────────────────── */
+    #details {
+      padding: 6rem 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .detail-card {
+      border: 1px solid rgba(245,237,232,0.08);
+      border-radius: 1rem;
+      padding: 2.5rem 2rem;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .detail-card:hover {
+      border-color: rgba(201,168,130,0.3);
+      background: rgba(201,168,130,0.04);
+    }
+
+    /* ── GALLERY STRIP ───────────────────────────────────── */
+    #gallery-strip {
+      padding: 0 0 5rem;
+      overflow: hidden;
+    }
+    .strip-track {
+      display: flex;
+      gap: 1rem;
+      padding: 0 1.5rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .strip-track::-webkit-scrollbar { display: none; }
+    .strip-img {
+      flex-shrink: 0;
+      width: 220px;
+      height: 300px;
+      border-radius: 1rem;
+      object-fit: cover;
+      object-position: top center;
+      border: 1px solid rgba(245,237,232,0.07);
+    }
+
+    /* ── APPLY SECTION ───────────────────────────────────── */
+    #apply {
+      padding: 4rem 1.5rem 6rem;
+      display: flex;
+      justify-content: center;
+    }
+    .apply-card {
+      max-width: 860px;
+      width: 100%;
+      background: linear-gradient(160deg, #2a1520 0%, #1a0e1a 50%, #0f0c1a 100%);
+      border-radius: 1.5rem;
+      padding: 4rem 2.5rem;
+      text-align: center;
+      border: 1px solid rgba(201,168,130,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .apply-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(201,168,130,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 0.85rem 2.5rem;
+      background: linear-gradient(135deg, #c9a882 0%, #a07850 100%);
+      color: #0d0b0b;
+      border-radius: 9999px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .cta-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid rgba(245,237,232,0.07);
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    /* ── SCROLL REVEAL ───────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     MOBILE MENU
+═══════════════════════════════════════════════════════════════════ -->
+<div id="mobile-menu" role="dialog" aria-label="Navigation menu">
+  <button id="close-menu" class="absolute top-6 right-8" style="color:rgba(245,237,232,0.6)">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </button>
+  <a href="../index.html" onclick="closeMenu()">Home</a>
+  <a href="../index.html#gallery" onclick="closeMenu()">Portfolio</a>
+  <a href="../index.html#services" onclick="closeMenu()">Experience</a>
+  <a href="../index.html#cta" onclick="closeMenu()">Enquire Now</a>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════════════════════════ -->
+<section id="hero">
+  <header class="z-30 flex w-full max-w-7xl items-center justify-between opacity-0-init anim-fadeup delay-1">
+    <a href="../index.html" class="logo-text" style="text-decoration:none;">TORONTO BOUDOIR.</a>
+
+    <nav class="hidden md:flex items-center gap-10">
+      <a href="../index.html">Home</a>
+      <a href="../index.html#gallery">Portfolio</a>
+      <a href="../index.html#services">Experience</a>
+      <a href="../index.html#cta">Enquire Now</a>
+    </nav>
+
+    <button id="open-menu" class="flex flex-col gap-1.5 md:hidden" aria-label="Open menu">
+      <span class="block h-px w-6" style="background:#f5ede8"></span>
+      <span class="block h-px w-6" style="background:#f5ede8"></span>
+      <span class="block h-px w-5" style="background:#f5ede8"></span>
+    </button>
+  </header>
+
+  <div class="relative flex-grow flex flex-col items-end justify-center z-10 w-full max-w-7xl" style="padding:2rem 0;">
+    <div style="max-width:600px; text-align:right;">
+      <p class="opacity-0-init anim-faderight delay-1" style="font-size:0.7rem; letter-spacing:0.22em; text-transform:uppercase; color:#c9a882; margin-bottom:1.25rem;">Open Casting Call · Late April Deadline</p>
+      <h1 class="opacity-0-init anim-faderight delay-2" style="font-family:'Playfair Display',serif; font-size:clamp(4rem,9vw,7.5rem); font-weight:700; line-height:0.92; letter-spacing:-0.02em; margin-bottom:1.5rem;">
+        be the<br />
+        <em style="font-style:italic; color:#c9a882;">subject.</em>
+      </h1>
+      <p class="opacity-0-init anim-faderight delay-3" style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; line-height:1.75; color:rgba(245,237,232,0.8);">
+        We are casting for an upcoming boudoir shoot. No experience necessary - only the desire to feel extraordinary.
+      </p>
+    </div>
+  </div>
+
+  <footer class="z-30 flex w-full max-w-7xl items-center justify-end opacity-0-init anim-fadeup delay-5">
+    <div style="font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:rgba(245,237,232,0.45);">
+      Toronto, Ontario
+    </div>
+  </footer>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     DETAILS
+═══════════════════════════════════════════════════════════════════ -->
+<section id="details">
+  <div class="text-center reveal" style="margin-bottom:3.5rem;">
+    <p style="font-size:0.7rem; letter-spacing:0.22em; text-transform:uppercase; color:#c9a882; margin-bottom:1rem;">The Opportunity</p>
+    <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4vw,3.2rem); font-weight:700; line-height:1.15; margin-bottom:1.25rem;">
+      Who We Are Looking For
+    </h2>
+    <p style="color:rgba(245,237,232,0.5); font-family:'Cormorant Garamond',serif; font-size:1.1rem; line-height:1.7; max-width:560px; margin:0 auto;">
+      Every body tells a story. We want to tell yours.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
+
+    <div class="detail-card">
+      <div style="width:2.5rem; height:2.5rem; border-radius:50%; background:rgba(201,168,130,0.1); border:1px solid rgba(201,168,130,0.2); display:flex; align-items:center; justify-content:center; margin-bottom:1.5rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a882" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; margin-bottom:0.75rem; font-weight:600;">Who Can Apply</h3>
+      <p style="color:rgba(245,237,232,0.55); font-size:0.88rem; line-height:1.75;">Female models, 18 or over. All sizes, shapes, and backgrounds welcome. No prior modelling experience required - newcomers are encouraged to apply.</p>
+    </div>
+
+    <div class="detail-card">
+      <div style="width:2.5rem; height:2.5rem; border-radius:50%; background:rgba(201,168,130,0.1); border:1px solid rgba(201,168,130,0.2); display:flex; align-items:center; justify-content:center; margin-bottom:1.5rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a882" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; margin-bottom:0.75rem; font-weight:600;">What You Receive</h3>
+      <p style="color:rgba(245,237,232,0.55); font-size:0.88rem; line-height:1.75;">This is a TFP (Trade for Prints) collaboration. Selected models receive a set of fully retouched, professionally edited images for their personal portfolio.</p>
+    </div>
+
+    <div class="detail-card">
+      <div style="width:2.5rem; height:2.5rem; border-radius:50%; background:rgba(201,168,130,0.1); border:1px solid rgba(201,168,130,0.2); display:flex; align-items:center; justify-content:center; margin-bottom:1.5rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a882" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <h3 style="font-family:'Playfair Display',serif; font-size:1.25rem; margin-bottom:0.75rem; font-weight:600;">Deadline</h3>
+      <p style="color:rgba(245,237,232,0.55); font-size:0.88rem; line-height:1.75;">Applications close in late April. Shoot takes place in our private Toronto studio. You must be able to commute to or live within Toronto.</p>
+    </div>
+
+  </div>
+
+  <!-- Privacy note -->
+  <div class="reveal" style="margin-top:3.5rem; border-top:1px solid rgba(245,237,232,0.07); padding-top:2.5rem; display:flex; flex-wrap:wrap; gap:2rem; justify-content:center; text-align:center;">
+    <div style="display:flex; align-items:flex-start; gap:0.85rem; max-width:280px;">
+      <svg style="flex-shrink:0; margin-top:2px;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c9a882" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div>
+        <p style="font-family:'Playfair Display',serif; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem;">100% Private &amp; Safe</p>
+        <p style="font-size:0.8rem; color:rgba(245,237,232,0.5); line-height:1.65;">All sessions take place in our private, by-appointment-only studio. You are always in control.</p>
+      </div>
+    </div>
+    <div style="display:flex; align-items:flex-start; gap:0.85rem; max-width:280px;">
+      <svg style="flex-shrink:0; margin-top:2px;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c9a882" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      <div>
+        <p style="font-family:'Playfair Display',serif; font-size:0.9rem; font-weight:600; margin-bottom:0.35rem;">Your Images, Your Choice</p>
+        <p style="font-size:0.8rem; color:rgba(245,237,232,0.5); line-height:1.65;">Selected images may be used in our portfolio and promotional material. You will be informed of how your photos are used before the shoot.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     GALLERY STRIP
+═══════════════════════════════════════════════════════════════════ -->
+<section id="gallery-strip">
+  <div class="reveal" style="text-align:center; padding:0 1.5rem; margin-bottom:2.5rem;">
+    <p style="font-size:0.7rem; letter-spacing:0.22em; text-transform:uppercase; color:#c9a882; margin-bottom:0.75rem;">The Work</p>
+    <h2 style="font-family:'Playfair Display',serif; font-size:clamp(1.8rem,3.5vw,2.8rem); font-weight:700; line-height:1.15;">
+      A glimpse of what we create
+    </h2>
+  </div>
+  <div class="strip-track reveal">
+    <img src="../assets/imgs/photo-1704919260237-4df6a7e70e4a.avif" alt="Boudoir portrait" class="strip-img" />
+    <img src="../assets/imgs/IMG_1513.jpeg"                          alt="Boudoir portrait" class="strip-img" />
+    <img src="../assets/imgs/photo-1625856198153-4723522a1c9b.avif" alt="Glamour portrait" class="strip-img" />
+    <img src="../assets/imgs/photo-1633465865496-b08a3cb9d073.avif" alt="Glamour portrait" class="strip-img" />
+    <img src="../assets/imgs/photo-1629834591791-2d60956b38ef.avif" alt="Glamour portrait" class="strip-img" />
+    <img src="../assets/imgs/photo-1652715256284-6cba3e829a70.avif" alt="Boudoir portrait" class="strip-img" />
+    <img src="../assets/imgs/photo-1625856198153-4723522a1c9b.avif" alt="Glamour portrait" class="strip-img" />
+    <img src="../assets/imgs/photo-1600252901341-7938e7cb112c.avif" alt="Glamour portrait" class="strip-img" />
+    <img src="../assets/imgs/IMG_1514.PNG"                           alt="Boudoir portrait" class="strip-img" />
+    <img src="../assets/imgs/photo-1622151853708-02beec11c5a7.avif" alt="Boudoir portrait" class="strip-img" />
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     HOW TO APPLY
+═══════════════════════════════════════════════════════════════════ -->
+<section id="apply">
+  <div class="apply-card reveal">
+
+    <p style="font-size:0.7rem; letter-spacing:0.22em; text-transform:uppercase; color:#c9a882; margin-bottom:1.25rem;">How to Apply</p>
+
+    <h2 style="font-family:'Playfair Display',serif; font-size:clamp(2rem,4.5vw,3.2rem); font-weight:700; line-height:1.15; max-width:560px; margin:0 auto 1.5rem; background:linear-gradient(135deg, #f5ede8 30%, #c9a882 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">
+      Ready to be seen?
+    </h2>
+
+    <!-- What is boudoir -->
+    <details style="max-width:580px; margin:0 auto 2.5rem; border:1px solid rgba(201,168,130,0.15); border-radius:0.875rem; background:rgba(255,255,255,0.03); text-align:left; overflow:hidden;">
+      <summary style="display:flex; align-items:center; justify-content:space-between; padding:1.25rem 2rem; cursor:pointer; list-style:none; user-select:none;">
+        <p style="font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:#c9a882; margin:0;">What is boudoir?</p>
+        <svg class="details-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a882" stroke-width="2" style="flex-shrink:0; transition:transform 0.3s ease;"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+      <div style="padding:0 2rem 1.75rem;">
+        <p style="font-family:'Cormorant Garamond',serif; font-size:1.05rem; line-height:1.75; color:rgba(245,237,232,0.75); margin-bottom:1rem;">
+          Boudoir is a genre of portraiture centered on intimacy, self-image, and personal expression - not exhibitionism. The goal is empowerment, self-love, and confidence. It is a deeply personal and transformative experience for most subjects.
+        </p>
+        <p style="font-family:'Cormorant Garamond',serif; font-size:1.05rem; line-height:1.75; color:rgba(245,237,232,0.75); margin-bottom:1rem;">
+          Subjects are typically photographed in lingerie, bra and panties, or topless. Every session is guided by artistry and authenticity - you will never be asked to do anything outside your comfort zone.
+        </p>
+        <p style="font-size:0.78rem; color:rgba(245,237,232,0.4); line-height:1.6;">
+          Please read this carefully before applying so you know exactly what to expect from the shoot.
+        </p>
+      </div>
+    </details>
+    <style>
+      details summary::-webkit-details-marker { display: none; }
+      details[open] .details-chevron { transform: rotate(180deg); }
+    </style>
+
+    <p style="color:rgba(245,237,232,0.6); font-family:'Cormorant Garamond',serif; font-size:1.1rem; line-height:1.7; max-width:520px; margin:0 auto 2.5rem;">
+      Send us an email with the following. No professional portfolio? No problem - an Instagram link or a clear selfie/headshot is absolutely fine.
+    </p>
+
+    <!-- Checklist -->
+    <div style="display:inline-block; text-align:left; margin-bottom:2.5rem;">
+      <ul style="list-style:none; display:flex; flex-direction:column; gap:0.85rem;">
+        <li style="display:flex; align-items:flex-start; gap:0.75rem; font-size:0.9rem; color:rgba(245,237,232,0.8);">
+          <svg style="flex-shrink:0; margin-top:1px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a882" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Portfolio, Instagram link, or photos of yourself (selfie or headshot is fine)
+        </li>
+        <li style="display:flex; align-items:flex-start; gap:0.75rem; font-size:0.9rem; color:rgba(245,237,232,0.8);">
+          <svg style="flex-shrink:0; margin-top:1px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a882" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Your age
+        </li>
+        <li style="display:flex; align-items:flex-start; gap:0.75rem; font-size:0.9rem; color:rgba(245,237,232,0.8);">
+          <svg style="flex-shrink:0; margin-top:1px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a882" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Whether you can commute to Toronto
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <a href="mailto:casting@torontoboudoir.studio?subject=Casting%20Call%20Application" class="cta-btn">Apply Now</a>
+    </div>
+
+    <p style="margin-top:1.75rem; font-size:0.75rem; color:rgba(245,237,232,0.3); letter-spacing:0.05em;">
+      casting@torontoboudoir.studio · Applications close Late April 2026
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════════════════ -->
+<footer>
+  <a href="../index.html" class="logo-text" style="text-decoration:none; font-size:1.1rem;">TORONTO BOUDOIR.</a>
+  <nav class="flex flex-wrap gap-6 justify-center">
+    <a href="../index.html" style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(245,237,232,0.4); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#f5ede8'" onmouseout="this.style.color='rgba(245,237,232,0.4)'">Home</a>
+    <a href="../index.html#gallery" style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(245,237,232,0.4); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#f5ede8'" onmouseout="this.style.color='rgba(245,237,232,0.4)'">Portfolio</a>
+    <a href="../index.html#services" style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(245,237,232,0.4); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#f5ede8'" onmouseout="this.style.color='rgba(245,237,232,0.4)'">Experience</a>
+    <a href="../index.html#cta" style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(245,237,232,0.4); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#f5ede8'" onmouseout="this.style.color='rgba(245,237,232,0.4)'">Enquire Now</a>
+  </nav>
+  <p style="font-size:0.72rem; color:rgba(245,237,232,0.2); letter-spacing:0.05em;">
+    &copy; 2026 Toronto Boudoir - Toronto, Ontario
+  </p>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════════════════ -->
+<script>
+  // Mobile menu
+  const mobileMenu = document.getElementById('mobile-menu');
+  document.getElementById('open-menu').addEventListener('click', () => mobileMenu.classList.add('open'));
+  document.getElementById('close-menu').addEventListener('click', () => mobileMenu.classList.remove('open'));
+  function closeMenu() { mobileMenu.classList.remove('open'); }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
